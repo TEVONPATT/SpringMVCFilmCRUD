@@ -208,25 +208,34 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			String pass = "student";
 			conn = DriverManager.getConnection(URL, user, pass);
 			conn.setAutoCommit(false); // START TRANSACTION
-			String sql = "INSERT INTO film (title, description, language_id) " + " VALUES (?,?, 1)";
+			String sql = "INSERT INTO film (title, description, release_year, language_id, rental_duration, rental_rate, length, replacement_cost, rating) "
+					+ " VALUES (?,?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, film.getTitle());
 			stmt.setString(2, film.getDescription());
+			stmt.setInt(3, film.getReleaseYear());
+			stmt.setInt(4, film.getLanguageId());
+			stmt.setInt(5, film.getRentalDuration());
+			stmt.setDouble(6, film.getRentalRate());
+			stmt.setInt(7, film.getLength());
+			stmt.setDouble(8, film.getReplacementCost());
+			stmt.setString(9, film.getRating());
+
 			int updateCount = stmt.executeUpdate();
 			if (updateCount == 1) {
 				ResultSet keys = stmt.getGeneratedKeys();
 				if (keys.next()) {
 					int newFilmId = keys.getInt(1);
 					film.setId(newFilmId);
-					if (film.getActors() != null && film.getActors().size() > 0) {
-						sql = "INSERT INTO film_actor (actor_id, film_id) VALUES (?,?)";
-						stmt = conn.prepareStatement(sql);
-						for (Actor actor : film.getActors()) {
-							stmt.setInt(1, actor.getId());
-							stmt.setInt(2, newFilmId);
-							updateCount = stmt.executeUpdate();
-						}
-					}
+//					if (film.getActors() != null && film.getActors().size() > 0) {
+//						sql = "INSERT INTO film_actor (actor_id, film_id) VALUES (?,?)";
+//						stmt = conn.prepareStatement(sql);
+//						for (Actor actor : film.getActors()) {
+//							stmt.setInt(1, actor.getId());
+//							stmt.setInt(2, newFilmId);
+//							updateCount = stmt.executeUpdate();
+//						}
+//					}
 				}
 			} else {
 				film = null;
@@ -253,9 +262,11 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			String pass = "student";
 			conn = DriverManager.getConnection(URL, user, pass);
 			conn.setAutoCommit(false); // START TRANSACTION
+
 			String sql = "DELETE FROM film_id WHERE film.id = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, film.getId());
+
 			int updateCount = stmt.executeUpdate();
 			sql = "DELETE FROM film WHERE id = ?";
 			stmt = conn.prepareStatement(sql);
@@ -283,28 +294,40 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			String pass = "student";
 			conn = DriverManager.getConnection(URL, user, pass);
 			conn.setAutoCommit(false); // START TRANSACTION
-			String sql = "UPDATE film SET film.title=?, film.description=? " + " WHERE id=?";
+			String sql = "UPDATE film SET title=?, description=?, release_year=?, language_id =?, rental_duration=?, rental_rate=?, length=?, replacement_cost=?, rating=? WHERE id=?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, film.getTitle());
 			stmt.setString(2, film.getDescription());
-			stmt.setInt(3, film.getId());
-			int updateCount = stmt.executeUpdate();
-			if (updateCount == 1) {
-				// Replace actor's film list
-				sql = "DELETE FROM film_actor WHERE actor_id = ?";
-				stmt = conn.prepareStatement(sql);
-				stmt.setInt(1, film.getId());
-				updateCount = stmt.executeUpdate();
-				sql = "INSERT INTO film_actor (film_id, actor_id) VALUES (?,?)";
-				stmt = conn.prepareStatement(sql);
-				for (Actor actor : film.getActors()) {
-					stmt.setInt(1, film.getId());
-					stmt.setInt(2, actor.getId());
-					updateCount = stmt.executeUpdate();
-				}
-				conn.commit(); // COMMIT TRANSACTION
-			}
-		} catch (SQLException sqle) {
+			stmt.setInt(3, film.getReleaseYear());
+			stmt.setInt(4, film.getLanguageId());
+			stmt.setInt(5, film.getRentalDuration());
+			stmt.setDouble(6, film.getRentalRate());
+			stmt.setInt(7, film.getLength());
+			stmt.setDouble(8, film.getReplacementCost());
+			stmt.setString(9, film.getRating());
+			stmt.setInt(10, film.getId());
+			
+		
+//			int updateCount = stmt.executeUpdate();
+//			if (updateCount == 1) {
+//				// Replace actor's film list
+//				sql = "DELETE FROM film_actor WHERE actor_id = ?";
+//				stmt = conn.prepareStatement(sql);
+//				stmt.setInt(1, film.getId());
+//				
+//				
+//				updateCount = stmt.executeUpdate();
+//				sql = "INSERT INTO film_actor (film_id, actor_id) VALUES (?,?)";
+//				stmt = conn.prepareStatement(sql);
+//				for (Actor actor : film.getActors()) {
+//					stmt.setInt(1, film.getId());
+//					stmt.setInt(2, actor.getId());
+//					updateCount = stmt.executeUpdate();
+//				}
+			stmt.executeUpdate();
+			conn.commit(); // COMMIT TRANSACTION
+//			}
+		}catch(SQLException sqle) {
 			sqle.printStackTrace();
 			if (conn != null) {
 				try {
@@ -315,8 +338,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				}
 			}
 			return false;
-		}
-		return true;
-	}
+		}return true;
+}
 
 }
