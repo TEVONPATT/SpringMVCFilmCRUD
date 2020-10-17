@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href="filmByIDForm.jsp">Get film By ID</a><br/>
+<a href="filmByID.html">Get film By ID</a><br/>
 <a href="addFilm.jsp">Add a new film By ID</a><br/>
 <a href="deleteFilm.jsp">Delete film</a><br/>
 <a href="updateFilm.jsp">Update a film</a><br/>

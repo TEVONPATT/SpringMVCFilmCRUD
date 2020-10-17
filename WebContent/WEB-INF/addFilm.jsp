@@ -5,11 +5,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Film by ID</title>
+<title>Add a film</title>
 </head>
 <body>
-  <h3>Films by ID</h3>
-  <form action="GetStateData.do" method="GET">
+  <h3>Add a film</h3>
+  <form action="createFilm.do" method="GET">
     ID:
     <input type="text" name="name"/> 
     <input type="submit" value="Get Film" />

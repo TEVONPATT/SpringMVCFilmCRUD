@@ -9,7 +9,7 @@
 </head>
 <body>
   <h3>Update film</h3>
-  <form action="GetStateData.do" method="GET">
+  <form action="saveFilm.do" method="GET">
     ID:
     <input type="text" name="name"/> 
     <input type="submit" value="Get Film" />
