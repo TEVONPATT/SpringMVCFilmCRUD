@@ -29,7 +29,7 @@ public class FilmController {
 		return mv;
 	}
 
-	@RequestMapping(path = "createFilm.do", method = RequestMethod.GET)
+	@RequestMapping(path = "createFilm.do", method = RequestMethod.POST)
 	public ModelAndView addFilm(Film film) {
 		db.createFilm(film);
 		ModelAndView mv = new ModelAndView();

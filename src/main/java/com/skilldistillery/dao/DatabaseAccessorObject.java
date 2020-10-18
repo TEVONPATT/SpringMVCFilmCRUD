@@ -202,7 +202,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		return language;
 
 	}
-
+	@Override
 	public Film createFilm(Film film) {
 		Connection conn = null;
 		try {
@@ -210,8 +210,10 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			String pass = "student";
 			conn = DriverManager.getConnection(URL, user, pass);
 			conn.setAutoCommit(false); // START TRANSACTION
+			// TODO MUST CHANGE BACK delete film.
 			String sql = "INSERT INTO film (title, description, release_year, language_id, rental_duration, rental_rate, length, replacement_cost, rating) "
 					+ " VALUES (?,?, ?, ?, ?, ?, ?, ?, ?)";
+			System.out.println("line 217");
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, film.getTitle());
 			stmt.setString(2, film.getDescription());
@@ -222,6 +224,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			stmt.setInt(7, film.getLength());
 			stmt.setDouble(8, film.getReplacementCost());
 			stmt.setString(9, film.getRating());
+			System.out.println("line 229");
 
 			int updateCount = stmt.executeUpdate();
 			if (updateCount == 1) {
@@ -244,12 +247,13 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			}
 			conn.commit(); // COMMIT TRANSACTION
 		} catch (SQLException sqle) {
-			sqle.printStackTrace();
+			System.out.println("Error trying to rollback");
+			
 			if (conn != null) {
 				try {
 					conn.rollback();
 				} catch (SQLException sqle2) {
-					System.err.println("Error trying to rollback");
+					System.out.println("Error trying to rollback");
 				}
 			}
 			throw new RuntimeException("Error inserting film " + film);

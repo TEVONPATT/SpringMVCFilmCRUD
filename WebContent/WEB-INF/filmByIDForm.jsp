@@ -22,5 +22,13 @@
 			<p>No film Found</p>
 		</c:otherwise>
 	</c:choose>
+	
+	<form action="deleteFilm.do" method="POST">
+    <label for="fname">Delete this film: </label>
+       <input type="radio" name="delete" value="YES">YES
+       <input type="radio" name="delete" value="NO">NO
+ <br>
+       <input type="submit" value="Submit">
+       </form>
 </body>
 </html>
