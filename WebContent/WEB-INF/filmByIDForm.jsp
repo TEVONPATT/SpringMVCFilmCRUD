@@ -16,6 +16,14 @@
 				<li>${film.title}</li>
 				<li>${film.description}</li>
 				<li>${film.id}</li>
+				
+				<c:forEach items="${film.actors}" var="actors">
+				<ul>
+  <li> ${actors.firstName }  ${actors.lastName }  </li>
+</ul>
+
+    <br>
+</c:forEach>
 			</ul>
 		</c:when>
 		<c:otherwise>

@@ -2,6 +2,7 @@ package com.skilldistillery.film.entities;
 
 import java.util.List;
 
+
 public class Film {
 	private int id;
 	private String title;
@@ -213,10 +214,39 @@ public class Film {
 
 	@Override
 	public String toString() {
-		return "Film [id=" + id + ", title=" + title + ", description=" + description + ", releaseYear=" + releaseYear
-				+ ", languageId=" + languageId + ", rentalDuration=" + rentalDuration + ", rentalRate=" + rentalRate
-				+ ", length=" + length + ", replacementCost=" + replacementCost + ", rating=" + rating
-				+ ", specialFeatures=" + specialFeatures + ", actors=" + actors + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("Film [id=");
+		builder.append(id);
+		builder.append(", title=");
+		builder.append(title);
+		builder.append(", description=");
+		builder.append(description);
+		builder.append(", releaseYear=");
+		builder.append(releaseYear);
+		builder.append(", languageId=");
+		builder.append(languageId);
+		builder.append(", rentalDuration=");
+		builder.append(rentalDuration);
+		builder.append(", rentalRate=");
+		builder.append(rentalRate);
+		builder.append(", length=");
+		builder.append(length);
+		builder.append(", replacementCost=");
+		builder.append(replacementCost);
+		builder.append(", rating=");
+		builder.append(rating);
+		builder.append(", specialFeatures=");
+		builder.append(specialFeatures);
+		builder.append(", language=");
+		builder.append(language);
+		builder.append(", actors=");
+		for (Actor actor : actors) {
+
+			builder.append(actor + "\n");
+
+		}
+		builder.append("]");
+		return builder.toString();
 	}
 
 

@@ -56,6 +56,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				film.setSpecialFeatures(filmResult.getString("special_features"));
 				film.setActors(findActorsByFilmId(filmId));
 				film.setLanguage(getLanguage(filmId));
+				film.setActors(findActorsByFilmId(filmId));
 
 				filmResult.close();
 				stmt.close();
@@ -209,6 +210,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	public Film createFilm(Film film) {
 		Connection conn = null;
 		try {
+			System.out.println("212");
 			String user = "student";
 			String pass = "student";
 			conn = DriverManager.getConnection(URL, user, pass);
@@ -216,6 +218,8 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			// TODO MUST CHANGE BACK delete film.
 			String sql = "INSERT INTO film (title, description, release_year, language_id, rental_duration, rental_rate, length, replacement_cost, rating) "
 					+ " VALUES (?,?, ?, ?, ?, ?, ?, ?, ?)";
+			System.out.println("220");
+			
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, film.getTitle());
 			stmt.setString(2, film.getDescription());
@@ -226,6 +230,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			stmt.setInt(7, film.getLength());
 			stmt.setDouble(8, film.getReplacementCost());
 			stmt.setString(9, film.getRating());
+			System.out.println("232");
 			int updateCount = stmt.executeUpdate();
 			if (updateCount == 1) {
 				ResultSet keys = stmt.getGeneratedKeys();
