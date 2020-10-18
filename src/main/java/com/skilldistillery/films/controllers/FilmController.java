@@ -19,7 +19,21 @@ public class FilmController {
 	public String index() {
 		return "WEB-INF/home.jsp";
 	}
-
+	
+	@RequestMapping (path = "home.do")
+	public ModelAndView homepage() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("WEB-INF/home.jsp");
+		return mv;
+	}
+	
+	@RequestMapping (path = "update.do")
+	public ModelAndView update() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("WEB-INF/update.jsp");
+		return mv;
+	}
+	
 	@RequestMapping(path = "findFilmByID.do", params = "filmId", method = RequestMethod.GET)
 	public ModelAndView filmByID(@RequestParam("filmId") Integer a) {
 		ModelAndView mv = new ModelAndView();
@@ -29,6 +43,15 @@ public class FilmController {
 		return mv;
 	}
 
+	@RequestMapping(path = "findFilmByIDEdit.do", params = "filmId", method = RequestMethod.GET)
+	public ModelAndView filmByIDNoDelete(@RequestParam("filmId") Integer a) {
+		ModelAndView mv = new ModelAndView();
+		Film f = db.findFilmById(a);
+		mv.addObject("film", f);
+		mv.setViewName("WEB-INF/filmByIdNoDelete.jsp");
+		return mv;
+	}
+	
 	@RequestMapping(path = "createFilm.do", method = RequestMethod.POST)
 	public ModelAndView addFilm(Film film) {
 		db.createFilm(film);
@@ -54,4 +77,37 @@ public class FilmController {
 		mv.setViewName("WEB-INF/home.jsp");
 		return mv;
 	}
+//	working on this now: (Christina)
+	@RequestMapping(path = "editFilm.do", params = "id", method = RequestMethod.GET)
+	public ModelAndView editFilm(int id) {
+		ModelAndView mv = new ModelAndView();
+		Film film;
+		try {
+			film = db.findFilmById(id);
+			mv.addObject(film);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		mv.setViewName("WEB-INF/updateFilm.jsp");
+		return mv;
+	}
+
+//	working on this now : (Christina)
+	@RequestMapping(path = "saveFilm.do", params = "id", method = RequestMethod.GET)
+	public ModelAndView updateFilm(int id) {
+		ModelAndView mv = new ModelAndView();
+		Film film;
+		try {
+			film = db.findFilmById(id);
+			mv.addObject(film);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		mv.setViewName("WEB-INF/update.jsp");
+		return mv;
+	}
+	
+	
 }

@@ -14,5 +14,7 @@ public interface DatabaseAccessor {
 	  public String getLanguage(int filmId);
 	  public Film createFilm(Film film);
 	  public boolean deleteFilm(Film film);
+	  public boolean updateFilm(Film film);
+	  public Film findFilmByIDEdit(int filmId);
 	}
 
