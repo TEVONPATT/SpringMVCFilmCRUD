@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import com.skilldistillery.film.entities.Actor;
 import com.skilldistillery.film.entities.Film;
+
 @Component
 public class DatabaseAccessorObject implements DatabaseAccessor {
 
@@ -34,8 +35,9 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			String user = "student";
 			String pass = "student";
 			Connection conn = DriverManager.getConnection(URL, user, pass);
-			String sql = "SELECT * FROM film \n" + "JOIN film_actor ON film_actor.film_id = film.id \n"
-					+ "JOIN actor ON film_actor.actor_id = actor.id \n" + "WHERE film.id = ?";
+//			String sql = "SELECT * FROM film \n" + "JOIN film_actor ON film_actor.film_id = film.id \n"
+//					+ "JOIN actor ON film_actor.actor_id = actor.id \n" + "WHERE film.id = ?";
+			String sql = "SELECT * FROM film join language on film.language_id = language.id where film.id = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, filmId);
 			ResultSet filmResult = stmt.executeQuery();
@@ -244,6 +246,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		return language;
 
 	}
+
 	@Override
 	public Film createFilm(Film film) {
 		Connection conn = null;
@@ -255,7 +258,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			// TODO MUST CHANGE BACK delete film.
 			String sql = "INSERT INTO film (title, description, release_year, language_id, rental_duration, rental_rate, length, replacement_cost, rating) "
 					+ " VALUES (?,?, ?, ?, ?, ?, ?, ?, ?)";
-			System.out.println("line 217");
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, film.getTitle());
 			stmt.setString(2, film.getDescription());
@@ -266,8 +268,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			stmt.setInt(7, film.getLength());
 			stmt.setDouble(8, film.getReplacementCost());
 			stmt.setString(9, film.getRating());
-			System.out.println("line 229");
-
 			int updateCount = stmt.executeUpdate();
 			if (updateCount == 1) {
 				ResultSet keys = stmt.getGeneratedKeys();
@@ -290,7 +290,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			conn.commit(); // COMMIT TRANSACTION
 		} catch (SQLException sqle) {
 			System.out.println("Error trying to rollback");
-			
+
 			if (conn != null) {
 				try {
 					conn.rollback();
@@ -303,36 +303,51 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		return film;
 	}
 
-	public boolean deleteFilm(Film film) {
+	public Film deleteFilm(int filmIdDelete) {
 		Connection conn = null;
+		Film film = null;
+		System.out.println(filmIdDelete);
+		System.out.println(" 266");
 		try {
 			String user = "student";
+			System.out.println(" 269");
 			String pass = "student";
 			conn = DriverManager.getConnection(URL, user, pass);
 			conn.setAutoCommit(false); // START TRANSACTION
-
-			String sql = "DELETE FROM film_id WHERE film.id = ?";
+			System.out.println(" 273");
+			System.out.println(filmIdDelete);
+			String sql = "DELETE FROM film WHERE film.id = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, film.getId());
+			stmt.setInt(1, filmIdDelete);
+			System.out.println(filmIdDelete);
+			System.out.println(" 278");
 
-			int updateCount = stmt.executeUpdate();
-			sql = "DELETE FROM film WHERE id = ?";
-			stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, film.getId());
-			updateCount = stmt.executeUpdate();
-			conn.commit(); // COMMIT TRANSACTION
-		} catch (SQLException sqle) {
-			sqle.printStackTrace();
-			if (conn != null) {
-				try {
-					conn.rollback();
-				} catch (SQLException sqle2) {
-					System.err.println("Error trying to rollback");
-				}
-			}
-			return false;
-		}
-		return true;
+			stmt.executeUpdate();
+//			sql = "DELETE FROM film WHERE id = ?";
+//			stmt.setInt(1, film.getId());
+//			
+//		      stmt.executeUpdate();
+		      System.out.println(" 284");
+		      
+		      System.out.println("Record deleted successfully");
+		      System.out.println(" 287");
+		  	conn.commit(); 
+		    } catch (SQLException e) {
+		      e.printStackTrace();
+			} // COMMIT TRANSACTION
+//		} catch (SQLException sqle) {
+//			sqle.printStackTrace();
+//			if (conn != null) {
+//				try {
+//					conn.rollback();
+//				} catch (SQLException sqle2) {
+//					System.err.println("Error trying to rollback");
+//				}
+//			}
+		
+//			return false;
+		
+		return film;
 	}
 
 	public boolean updateFilm(Film film) {
@@ -354,8 +369,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			stmt.setDouble(8, film.getReplacementCost());
 			stmt.setString(9, film.getRating());
 			stmt.setInt(10, film.getId());
-			
-		
+
 //			int updateCount = stmt.executeUpdate();
 //			if (updateCount == 1) {
 //				// Replace actor's film list
@@ -375,7 +389,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			stmt.executeUpdate();
 			conn.commit(); // COMMIT TRANSACTION
 //			}
-		}catch(SQLException sqle) {
+		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 			if (conn != null) {
 				try {
@@ -386,7 +400,8 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				}
 			}
 			return false;
-		}return true;
-}
+		}
+		return true;
+	}
 
 }

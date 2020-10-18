@@ -16,32 +16,48 @@
     <br>
     
     Release year:
-    <input type="text" name="releaseYear"/> 
+    <input type="text" name="releaseYear" value="0"/> 
     <br>
 	
-	Language ID:
-    <input type="text" name="languageId"/> 
-    <br>
+            <section class="languageId"><!-- dropdown menu-->
+          <label for="languageId">Language ID:</label>
+          <select id="languageId" name="languageId">
+            <option value= "1">English</option>
+            <option value= "2">Italian</option>
+            <option value= "3">Japanese</option>
+            <option value= "4">Mandarin</option>
+            <option value= "5">French</option>
+            <option value= "6">German</option>
+          </select>
+        </section>
 	
 	Rental duration:
-    <input type="text" name="rentalDuration"/> 
+    <input type="number" name="rentalDuration" value="0"/> 
     <br>
 	
 	Rental rate:
-    <input type="text" name="rentalRate"/> 
+    <input type="text" name="rentalRate" value="0"/> 
     <br>
 	
 	Length:
-    <input type="text" name="length"/> 
+    <input type="number" name="length" value="0"/> 
     <br>
 	
 	Replacement cost:
-    <input type="text" name="replacementCost"/> 	
+    <input type="text" name="replacementCost" value="0"/> 	
     <br>
     
-    Rating:
-    <input type="text" name="rating"/> 
-    <br>
+                <section class="rating"><!-- dropdown menu-->
+          <label for="rating">Rating:</label>
+          <select id="rating" name="rating">
+            <option value= "G">G</option>
+            <option value= "PG">PG</option>
+            <option value= "PG13">PG13</option>
+            <option value= "NC17">NC17</option>
+            <option value= "R">R</option>
+          </select>
+        </section>
+        
     <input type="submit" value="Add Film" />
 
   </form>

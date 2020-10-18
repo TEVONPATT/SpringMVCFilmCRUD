@@ -37,9 +37,15 @@ public class FilmController {
 	@RequestMapping(path = "findFilmByID.do", params = "filmId", method = RequestMethod.GET)
 	public ModelAndView filmByID(@RequestParam("filmId") Integer a) {
 		ModelAndView mv = new ModelAndView();
-		Film f = db.findFilmById(a);
-		mv.addObject("film", f);
-		mv.setViewName("WEB-INF/filmByIDForm.jsp");
+		Film f;
+		try {
+			f = db.findFilmById(a);
+			mv.addObject("film", f);
+			mv.setViewName("WEB-INF/filmByIDForm.jsp");
+		} catch (Exception e) {
+			mv.setViewName("WEB-INF/filmByIDForm.jsp");
+//			e.printStackTrace();
+		}
 		return mv;
 	}
 
@@ -54,17 +60,21 @@ public class FilmController {
 	
 	@RequestMapping(path = "createFilm.do", method = RequestMethod.POST)
 	public ModelAndView addFilm(Film film) {
-		db.createFilm(film);
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("WEB-INF/addFilm.jsp");
+		try {
+			db.createFilm(film);
+			mv.setViewName("WEB-INF/addFilm.jsp");
+		} catch (Exception e) {
+			mv.setViewName("WEB-INF/addFilm.jsp");
+//			e.printStackTrace();
+		}
 		return mv;
 	}
 
-	@RequestMapping(path = "deleteFilm.do", method = RequestMethod.GET)
-	public ModelAndView deleteFilm() {
+	@RequestMapping(path = "deleteFilm.do", params = "filmIdDelete", method = RequestMethod.GET)
+	public ModelAndView deleteFilm(@RequestParam("filmIdDelete") Integer a) {
 		ModelAndView mv = new ModelAndView();
-		// TODO Might need change.
-//		Film f = db.deleteFilm();
+		db.deleteFilm(a);
 		mv.setViewName("WEB-INF/home.jsp");
 		return mv;
 	}
