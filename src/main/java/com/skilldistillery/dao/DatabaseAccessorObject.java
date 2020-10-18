@@ -261,36 +261,51 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		return film;
 	}
 
-	public boolean deleteFilm(Film film) {
+	public Film deleteFilm(int filmIdDelete) {
 		Connection conn = null;
+		Film film = null;
+		System.out.println(filmIdDelete);
+		System.out.println(" 266");
 		try {
 			String user = "student";
+			System.out.println(" 269");
 			String pass = "student";
 			conn = DriverManager.getConnection(URL, user, pass);
 			conn.setAutoCommit(false); // START TRANSACTION
-
-			String sql = "DELETE FROM film_id WHERE film.id = ?";
+			System.out.println(" 273");
+			System.out.println(filmIdDelete);
+			String sql = "DELETE FROM film WHERE film.id = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, film.getId());
+			stmt.setInt(1, filmIdDelete);
+			System.out.println(filmIdDelete);
+			System.out.println(" 278");
 
-			int updateCount = stmt.executeUpdate();
-			sql = "DELETE FROM film WHERE id = ?";
-			stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, film.getId());
-			updateCount = stmt.executeUpdate();
-			conn.commit(); // COMMIT TRANSACTION
-		} catch (SQLException sqle) {
-			sqle.printStackTrace();
-			if (conn != null) {
-				try {
-					conn.rollback();
-				} catch (SQLException sqle2) {
-					System.err.println("Error trying to rollback");
-				}
-			}
-			return false;
-		}
-		return true;
+			stmt.executeUpdate();
+//			sql = "DELETE FROM film WHERE id = ?";
+//			stmt.setInt(1, film.getId());
+//			
+//		      stmt.executeUpdate();
+		      System.out.println(" 284");
+		      
+		      System.out.println("Record deleted successfully");
+		      System.out.println(" 287");
+		  	conn.commit(); 
+		    } catch (SQLException e) {
+		      e.printStackTrace();
+			} // COMMIT TRANSACTION
+//		} catch (SQLException sqle) {
+//			sqle.printStackTrace();
+//			if (conn != null) {
+//				try {
+//					conn.rollback();
+//				} catch (SQLException sqle2) {
+//					System.err.println("Error trying to rollback");
+//				}
+//			}
+		
+//			return false;
+		
+		return film;
 	}
 
 	public boolean saveFilm(Film film) {

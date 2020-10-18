@@ -23,12 +23,12 @@
 		</c:otherwise>
 	</c:choose>
 	
-	<form action="deleteFilm.do" method="POST">
+	<form action="deleteFilm.do" method="GET">
     <label for="fname">Delete this film: </label>
-       <input type="radio" name="delete" value="YES">YES
-       <input type="radio" name="delete" value="NO">NO
+       <input type="radio" name="filmIdDelete" value="${film.id}">YES
+       <input type="radio" name="filmIdDelete" value="NO">NO
  <br>
-       <input type="submit" value="Submit">
+       <input type="submit" value="${film.id}">
        </form>
 </body>
 </html>

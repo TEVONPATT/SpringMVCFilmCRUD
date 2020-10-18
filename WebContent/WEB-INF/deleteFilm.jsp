@@ -8,11 +8,6 @@
 <title>Delete film</title>
 </head>
 <body>
-  <h3>Delete films</h3>
-  <form action="deleteFilm.do" method="GET">
-    Film ID:
-    <input type="text" name="name"/> 
-    <input type="submit" value="Get Film" />
-  </form>
+  <h3>Film deleted!</h3>
 </body>
 </html>

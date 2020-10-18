@@ -13,6 +13,6 @@ public interface DatabaseAccessor {
 	  public List<Film> findFilmBySearchWord(String keyword);
 	  public String getLanguage(int filmId);
 	  public Film createFilm(Film film);
-	  public boolean deleteFilm(Film film);
+	  public Film deleteFilm(int film);
 	}
 
