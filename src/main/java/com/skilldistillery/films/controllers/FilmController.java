@@ -23,17 +23,28 @@ public class FilmController {
 	@RequestMapping(path = "findFilmByID.do", params = "filmId", method = RequestMethod.GET)
 	public ModelAndView filmByID(@RequestParam("filmId") Integer a) {
 		ModelAndView mv = new ModelAndView();
-		Film f = db.findFilmById(a);
-		mv.addObject("film", f);
-		mv.setViewName("WEB-INF/filmByIDForm.jsp");
+		Film f;
+		try {
+			f = db.findFilmById(a);
+			mv.addObject("film", f);
+			mv.setViewName("WEB-INF/filmByIDForm.jsp");
+		} catch (Exception e) {
+			mv.setViewName("WEB-INF/filmByIDForm.jsp");
+//			e.printStackTrace();
+		}
 		return mv;
 	}
 
 	@RequestMapping(path = "createFilm.do", method = RequestMethod.POST)
 	public ModelAndView addFilm(Film film) {
-		db.createFilm(film);
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("WEB-INF/addFilm.jsp");
+		try {
+			db.createFilm(film);
+			mv.setViewName("WEB-INF/addFilm.jsp");
+		} catch (Exception e) {
+			mv.setViewName("WEB-INF/addFilm.jsp");
+//			e.printStackTrace();
+		}
 		return mv;
 	}
 

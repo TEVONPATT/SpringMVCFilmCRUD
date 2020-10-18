@@ -207,10 +207,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 	@Override
 	public Film createFilm(Film film) {
-		System.out.println(film);
-		film = null;
-		System.out.println(film);
-
 		Connection conn = null;
 		try {
 			String user = "student";
