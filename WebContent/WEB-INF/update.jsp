@@ -1,25 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Update/Edit film</title>
+<title>Insert title here</title>
 </head>
 <body>
-	Please enter which you would like to update:
-  
-<c:choose>
-		<c:when test="${! empty film }">
-		<br>
-  <form action="updateFilm.do" method="POST">
-				<label for="title">Title:</label> <input type="text" name="title"
-					value="${film.title }" /> <input type="hidden" name="id"
-					value="${film.id }" /> <input type="submit" value="Update" />
-			</form>
-</c:when>
-</c:choose>
+Film has been updated!
 
 
+<br>
+	
+	
+<form action="home.do" method="GET">
+		<input type="submit" class="button" value="Home Page" />
+	</form>
+			
+			
 </body>
 </html>
+
+
+<style type="text/css">
+body {
+	background: #292929;
+	color: #ffffff;
+	display: inline-block;
+	font-family: 'Lato', sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 12px;
+	letter-spacing: 1px;
+	margin: 0 0 30px;
+	padding: 10px 15px 8px;
+}

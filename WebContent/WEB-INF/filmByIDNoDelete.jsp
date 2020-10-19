@@ -31,13 +31,72 @@
 	</c:choose>
 	
 	
-	<form action="update.do" method="GET">
-		<input type="submit" class="button" value="Update this film" />
-	</form>
+	<c:choose>
+		<c:when test="${! empty film }">
+		<br>
+  <form action="updateFilm.do" method="GET">
+				<label for="title">Title:</label> <input type="text" name="title"
+					value="${film.title }" /> <input type="hidden" name="id"
+					value="${film.id }" /> 
+		<br>
+				<label for="description">Description:</label> <input type="text" name="description"
+					value="${film.description }" /> <input type="hidden" name="id"
+					value="${film.id }" /> 
+	<br>
+				<label for="releaseYear">Released:</label> <input type="text" name="releaseYear"
+					value="${film.releaseYear }" /> <input type="hidden" name="id"
+					value="${film.id }" />
+<%-- 				<label for="title">Language ID:</label> <input type="text" name="title"
+					value="${film.languageId }" /> <input type="hidden" name="id"
+					value="${film.id }" />  --%>
+
+			<br>
+				<label for="rentalDuration">Rental Duration:</label> <input type="text" name="rentalDuration"
+					value="${film.rentalDuration }" /> <input type="hidden" name="id"
+					value="${film.id }" /> 
+		<br>
+			
+				<label for="rentalRate">Rental Cost:</label> <input type="text" name="rentalRate"
+					value="${film.rentalRate }" /> <input type="hidden" name="id"
+					value="${film.id }" /> 
+
+			<br>
+				<label for="replacementCost">Replacement Cost:</label> <input type="text" name="replacementCost"
+					value="${film.replacementCost }" /> <input type="hidden" name="id"
+					value="${film.id }" /> 
+			<br>
+						<label for="length">Length:</label> <input type="text" name="length"
+					value="${film.length }" /> <input type="hidden" name="id"
+					value="${film.id }" /> 
 	
+			<br>
+				<label for="rating">Rating:</label> <input type="text" name="rating"
+					value="${film.rating }" /> <input type="hidden" name="id"
+					value="${film.id }" /> 
+					<br>
+					<input type="submit" value="Update" />
+			</form>
+</c:when>
+</c:choose>
+
 	
 	<form action="home.do" method="GET">
 		<input type="submit" class="button" value="Back" />
 	</form>
 </body>
 </html>
+
+
+<style type="text/css">
+body {
+	background: #292929;
+	color: #ffffff;
+	display: inline-block;
+	font-family: 'Lato', sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 12px;
+	letter-spacing: 1px;
+	margin: 0 0 30px;
+	padding: 10px 15px 8px;
+}
