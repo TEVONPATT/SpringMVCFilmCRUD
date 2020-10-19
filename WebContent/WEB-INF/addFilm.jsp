@@ -30,7 +30,11 @@
 				<p>Adding film failed.</p>
 			</c:otherwise>
 		</c:choose>
+		<form action="home.do" method="GET">
+		<input type="submit" class="button" value="Home Page" />
+	</form>
 	</div>
+	
 </body>
 </html>
 

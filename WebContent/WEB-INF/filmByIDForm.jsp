@@ -42,6 +42,10 @@
  <br>
        <input type="submit" value="Delete">
        </form>
+       <br>
+       <form action="home.do" method="GET">
+		<input type="submit" class="button" value="Home Page" />
+	</form>
 </body>
 </html>
 
