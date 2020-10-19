@@ -13,15 +13,17 @@
 		<c:choose>
 			<c:when test="${not empty film}">
 				<ul>
-					<li>${film.title}</li>
-					<li>${film.description}</li>
-					<li>${film.releaseYear}</li>
-					<li>${film.languageId}</li>
-					<li>${film.rentalDuration}</li>
-					<li>${film.rentalRate}</li>
-					<li>${film.length}</li>
-					<li>${film.replacementCost}</li>
-					<li>${film.rating}</li>
+					
+					<li>Film ID: ${film.id}</li>
+					<li>Title: ${film.title}</li>
+					<li>Description: ${film.description}</li>
+					<li>Release year: ${film.releaseYear}</li>
+					<li>Language ID: ${film.languageId}</li>
+					<li>Rental duration: ${film.rentalDuration}</li>
+					<li>Rental rate: ${film.rentalRate}</li>
+					<li>Length: ${film.length}</li>
+					<li>Replacement cost: ${film.replacementCost}</li>
+					<li>Rating: ${film.rating}</li>
 				</ul>
 			</c:when>
 			<c:otherwise>

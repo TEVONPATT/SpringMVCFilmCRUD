@@ -69,7 +69,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		return film;
 
 	}
-	
 
 	@Override
 	public Film findFilmByIDEdit(int filmId) {
@@ -261,7 +260,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			String sql = "INSERT INTO film (title, description, release_year, language_id, rental_duration, rental_rate, length, replacement_cost, rating) "
 					+ " VALUES (?,?, ?, ?, ?, ?, ?, ?, ?)";
 			System.out.println("220");
-			
+
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, film.getTitle());
 			stmt.setString(2, film.getDescription());
@@ -332,14 +331,14 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 //			stmt.setInt(1, film.getId());
 //			
 //		      stmt.executeUpdate();
-		      System.out.println(" 284");
-		      
-		      System.out.println("Record deleted successfully");
-		      System.out.println(" 287");
-		  	conn.commit(); 
-		    } catch (SQLException e) {
-		      e.printStackTrace();
-			} // COMMIT TRANSACTION
+			System.out.println(" 284");
+
+			System.out.println("Record deleted successfully");
+			System.out.println(" 287");
+			conn.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} // COMMIT TRANSACTION
 //		} catch (SQLException sqle) {
 //			sqle.printStackTrace();
 //			if (conn != null) {
@@ -349,9 +348,9 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 //					System.err.println("Error trying to rollback");
 //				}
 //			}
-		
+
 //			return false;
-		
+
 		return film;
 	}
 

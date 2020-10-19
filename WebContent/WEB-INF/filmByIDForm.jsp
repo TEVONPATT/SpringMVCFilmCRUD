@@ -13,16 +13,18 @@
 	<c:choose>
 		<c:when test="${not empty film}">
 			<ul>
-				<li>${film.title}</li>
-				<li>${film.description}</li>
-				<li>${film.id}</li>
+				<li>Film ID: ${film.id}</li>
+				<li>Title: ${film.title}</li>
+				<li>Description: ${film.description}</li>
+				<li>Actors:</li>
 				
 				<c:forEach items="${film.actors}" var="actors">
 				<ul>
+				
   <li> ${actors.firstName }  ${actors.lastName }  </li>
 </ul>
 
-    <br>
+    
 </c:forEach>
 			</ul>
 		</c:when>
@@ -36,7 +38,7 @@
        <input type="radio" name="filmIdDelete" value="${film.id}">YES
        <input type="radio" name="filmIdDelete" value="NO">NO
  <br>
-       <input type="submit" value="${film.id}">
+       <input type="submit" value="Delete">
        </form>
 </body>
 </html>
