@@ -27,6 +27,7 @@ public class FilmController {
 		return mv;
 	}
 	
+	
 	@RequestMapping (path = "update.do")
 	public ModelAndView update() {
 		ModelAndView mv = new ModelAndView();
@@ -75,7 +76,7 @@ public class FilmController {
 	public ModelAndView deleteFilm(@RequestParam("filmIdDelete") Integer a) {
 		ModelAndView mv = new ModelAndView();
 		db.deleteFilm(a);
-		mv.setViewName("WEB-INF/home.jsp");
+		mv.setViewName("WEB-INF/deleteFilm.jsp");
 		return mv;
 	}
 
@@ -104,12 +105,12 @@ public class FilmController {
 	}
 
 //	working on this now : (Christina)
-	@RequestMapping(path = "saveFilm.do", params = "id", method = RequestMethod.GET)
-	public ModelAndView updateFilm(int id) {
+	@RequestMapping(path = "updateFilm.do", method = RequestMethod.GET)
+	public ModelAndView updateFilm(Film film) {
 		ModelAndView mv = new ModelAndView();
-		Film film;
+//		Film film;
 		try {
-			film = db.findFilmById(id);
+			film = db.updateFilm(film);
 			mv.addObject(film);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -118,6 +119,6 @@ public class FilmController {
 		mv.setViewName("WEB-INF/update.jsp");
 		return mv;
 	}
+
 	
-	
-}
+}	
