@@ -13,10 +13,13 @@
 	<c:choose>
 		<c:when test="${not empty film}">
 			<ul>
-				<li>Film ID: ${film.id}</li>
-				<li>Title: ${film.title}</li>
-				<li>Description: ${film.description}</li>
-				<li>Actors:</li>
+			<em>Title:</em>${film.title}
+			<br>
+				<em>Film ID:</em> ${film.id}
+				<br>
+				<em>Description:</em> ${film.description}
+				<br>
+				<em>Actors:</em>
 				
 				<c:forEach items="${film.actors}" var="actors">
 				<ul>
