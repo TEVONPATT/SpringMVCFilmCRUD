@@ -22,6 +22,9 @@
 	<a href="addFilm.html">Add a new film</a>
 	<br>
 	<br>
+	<a href="filmByKW.html">Search a film by keyword</a>
+	<br />
+	<br>
 	<a href="updateFilm.html">Update a film</a>
 	<br />
 	<br>

@@ -12,8 +12,6 @@ public interface DatabaseAccessor {
 
 	public List<Actor> findActorsByFilmId(int filmId);
 
-	public List<Film> findFilmBySearchWord(String keyword);
-
 	public String getLanguage(int filmId);
 
 	public Film createFilm(Film film);
@@ -23,5 +21,7 @@ public interface DatabaseAccessor {
 	public Film findFilmByIDEdit(int filmId);
 
 	public Film deleteFilm(int film);
+	
+	public List<Film> findFilmBySearchWord(String keyword);
 
 }

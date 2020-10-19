@@ -17,14 +17,23 @@ public class Film {
 	private String specialFeatures;
 	private String language;
 	private List<Actor> actors;
+	private String name;
 	
 	
 	
 	public Film() {
 		
 	}
+	
 
-
+	public Film(int id, String title, int releaseYear, String rating, String description, String name) {
+		this.id = id;
+		this.title = title;
+		this.releaseYear = releaseYear;
+		this.rating = rating;
+		this.description = description;
+		this.name = name;
+	}
 
 
 
@@ -241,10 +250,10 @@ public class Film {
 		builder.append(language);
 		builder.append(", actors=");
 		for (Actor actor : actors) {
-
 			builder.append(actor + "\n");
-
 		}
+		builder.append(", name=");
+		builder.append(name);
 		builder.append("]");
 		return builder.toString();
 	}

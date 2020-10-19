@@ -2,20 +2,22 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Film by ID</title>
+<title>Film by Key Word</title>
 </head>
 <body>
-	<h3>Films by ID</h3>
-	<form action="findFilmByID.do" method="GET">
-		ID: <input type="text" name="filmId" /> <input type="submit"
+	<h3>Films by Key Word</h3>
+	<form action="findFilmBySearchWord.do" method="GET">
+		Enter key word: <input type="text" name="keyword" /> <input type="submit"
 			value="Get Film" />
 	</form>
 	
 	<br>
-	
 	<form action="home.do" method="GET">
-		<input type="submit" class="button" value="Home Page" />
+		<input type="submit" class="button" value="Back" />
 	</form>
+	
+	
+	
 </body>
 
 <style>
@@ -32,5 +34,4 @@ body {
 	padding: 10px 15px 8px;
 }
 </style>
-
 </html>

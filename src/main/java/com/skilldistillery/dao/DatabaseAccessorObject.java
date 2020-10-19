@@ -111,46 +111,46 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 	}
 
-	@Override
-	public List<Film> findFilmBySearchWord(String keyword) {
-		Film film = null;
-		List<Film> filmsList = new ArrayList<>();
-		try {
-			String user = "student";
-			String pass = "student";
-			Connection conn = DriverManager.getConnection(URL, user, pass);
-			String sql = "SELECT film.* " + "FROM film " + "WHERE film.title " + "LIKE ? OR film.description "
-					+ "LIKE ?; ";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setString(1, "%" + keyword + "%");
-			stmt.setString(2, "%" + keyword + "%");
-			ResultSet filmResult = stmt.executeQuery();
-			while (filmResult.next()) {
-				film = new Film();
-
-				film.setId(filmResult.getInt("id"));
-				film.setTitle(filmResult.getString("title"));
-				film.setDescription(filmResult.getString("description"));
-				film.setReleaseYear(filmResult.getInt("release_year"));
-				film.setLanguageId(filmResult.getInt("language_id"));
-				film.setRentalDuration(filmResult.getInt("rental_duration"));
-				film.setRentalRate(filmResult.getDouble("rental_rate"));
-				film.setLength(filmResult.getInt("length"));
-				film.setReplacementCost(filmResult.getDouble("replacement_cost"));
-				film.setRating(filmResult.getString("rating"));
-				film.setSpecialFeatures(filmResult.getString("special_features"));
-				film.setActors(findActorsByFilmId(filmResult.getInt("id")));
-				film.setLanguage(getLanguage(film.getId()));
-
-				filmsList.add(film);
-
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return filmsList;
-
-	}
+//	@Override
+//	public List<Film> findFilmBySearchWord(String keyword) {
+//		Film film = null;
+//		List<Film> filmsList = new ArrayList<>();
+//		try {
+//			String user = "student";
+//			String pass = "student";
+//			Connection conn = DriverManager.getConnection(URL, user, pass);
+//			String sql = "SELECT film.* " + "FROM film " + "WHERE film.title " + "LIKE ? OR film.description "
+//					+ "LIKE ?; ";
+//			PreparedStatement stmt = conn.prepareStatement(sql);
+//			stmt.setString(1, "%" + keyword + "%");
+//			stmt.setString(2, "%" + keyword + "%");
+//			ResultSet filmResult = stmt.executeQuery();
+//			while (filmResult.next()) {
+//				film = new Film();
+//
+//				film.setId(filmResult.getInt("id"));
+//				film.setTitle(filmResult.getString("title"));
+//				film.setDescription(filmResult.getString("description"));
+//				film.setReleaseYear(filmResult.getInt("release_year"));
+//				film.setLanguageId(filmResult.getInt("language_id"));
+//				film.setRentalDuration(filmResult.getInt("rental_duration"));
+//				film.setRentalRate(filmResult.getDouble("rental_rate"));
+//				film.setLength(filmResult.getInt("length"));
+//				film.setReplacementCost(filmResult.getDouble("replacement_cost"));
+//				film.setRating(filmResult.getString("rating"));
+//				film.setSpecialFeatures(filmResult.getString("special_features"));
+//				film.setActors(findActorsByFilmId(filmResult.getInt("id")));
+//				film.setLanguage(getLanguage(film.getId()));
+//
+//				filmsList.add(film);stmt.setInt(3, film.getReleaseYear());
+//
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return filmsList;
+//
+//	}
 
 	@Override
 	public Actor findActorById(int actorId) {
@@ -367,7 +367,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, film.getTitle());
 			stmt.setString(2, film.getDescription());
-			stmt.setInt(3, film.getReleaseYear());
+			
 //			stmt.setInt(4, film.getLanguageId());
 			stmt.setInt(4, film.getRentalDuration());
 			stmt.setDouble(5, film.getRentalRate());
@@ -408,6 +408,37 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			}
 		}
 		return film;
+	}
+	
+	@Override
+	public List<Film> findFilmBySearchWord(String keyword) {
+		List<Film> filmsList = new ArrayList<>();
+		try {
+			String user = "student";
+			String pass = "student";
+			Connection conn = DriverManager.getConnection(URL, user, pass);
+			String sql = "select * from film join language on film.language_id = language.id where instr(film.title, ?) or instr(film.description, ?)";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, keyword);
+			stmt.setString(2, keyword);
+//			stmt.setString(1, "%" + keyword + "%");
+//			stmt.setString(2, "%" + keyword + "%");
+			ResultSet filmResult = stmt.executeQuery();
+			while (filmResult.next()) {
+				int id = filmResult.getInt("id");
+				String title = filmResult.getString("title");
+				int releaseYear = filmResult.getInt("release_Year");
+				String rating = filmResult.getString("rating");
+				String description = filmResult.getString("description");
+				String name = filmResult.getString("name");
+				Film film = new Film(id, title, releaseYear, rating, description, name);
+				film.setActors(findActorsByFilmId(id));
+				filmsList.add(film);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return filmsList;
 	}
 
 }
