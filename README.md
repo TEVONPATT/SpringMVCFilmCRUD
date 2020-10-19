@@ -1,5 +1,5 @@
-#Spring MVC Film C.R.U.D. Project
-###Collatborative Project - Christina, Tevon, & Ryan
+# Spring MVC Film C.R.U.D. Project
+### Collaborative Project - Christina, Tevon, & Ryan
 
 ## Project Overview
 This full web-based program using Spring MVC allows a user to access a database of films and modify it as the user pleases.
